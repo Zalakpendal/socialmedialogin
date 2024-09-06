@@ -44,5 +44,36 @@ class SocialAuthController extends Controller
     {
         return view('socialmediadashbord'); 
     }
+
+    public function redirectToGitHub()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function handleGitHubCallback()
+    {
+       
+                $git_user = Socialite::driver('github')->user();
+                // dd($git_user);
+                $user = User::where('github_id', $git_user->getId())->first();
+                if (!$user) {
+                    $new_user = new User();
+                    $new_user->name = $git_user->getName();
+                    $new_user->email = $git_user->getEmail();
+                    $new_user->github_id = $git_user->getId();
+                    if ($new_user->save()) {
+                        Auth::login($new_user);
+                        return redirect()->to('dashbordforgithubusers');
+                    }
+                } else {
+                    Auth::login($user);
+                    return redirect()->to('dashbordforgithubusers');
+                }
+    }
+
+    public function showgitdashbord()
+    {
+        return view('gitdashbord'); 
+    }
     
 }

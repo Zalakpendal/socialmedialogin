@@ -24,6 +24,6 @@ Route::get('auth/google/callback',[SocialAuthController::class, 'handleGoogleCal
 Route::get('dashboard', [SocialAuthController::class, 'showDashboard']);
 
 
-// Route::get('auth/github', [SocialAuthController::class, 'redirectToGitHub']);
-// Route::get('auth/github/callback', [SocialAuthController::class, 'handleGitHubCallback']);
-// Route::get('dashbordforgithubusers', [SocialAuthController::class, 'showgitdashbord']);
+Route::get('auth/github', [SocialAuthController::class, 'redirectToGitHub']);
+Route::get('auth/github/callback', [SocialAuthController::class, 'handleGitHubCallback']);
+Route::get('dashbordforgithubusers', [SocialAuthController::class, 'showgitdashbord']);
