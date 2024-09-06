@@ -54,7 +54,6 @@ class SocialAuthController extends Controller
     {
        
                 $git_user = Socialite::driver('github')->user();
-                // dd($git_user);
                 $user = User::where('github_id', $git_user->getId())->first();
                 if (!$user) {
                     $new_user = new User();
